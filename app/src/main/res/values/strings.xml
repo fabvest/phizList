@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">InstaPhiz</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="first_last_name">ФИО</string>
+    <string name="lesson">Предмет</string>
+    <string name="price">Цена</string>
+    <string name="mark">Оценка</string>
+    <string name="semester">Семестр</string>
+    <string name="kafedra">Кафедра</string>
+    <string name="add">Добавить</string>
+    <string name="give_list">Показать список</string>
+    <string name="exit">Выход</string>
+    <string name="clear_all">Очистить список</string>
+</resources>
