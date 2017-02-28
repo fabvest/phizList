@@ -1,94 +1,54 @@
 package com.fabvest_inc.ru.instaphiz;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.FragmentActivity;
+
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
-import com.fabvest_inc.ru.instaphiz.DB.DBHelper;
-import com.fabvest_inc.ru.instaphiz.DB.InstaPhizContract;
-import com.fabvest_inc.ru.instaphiz.Data.User;
 
-public class Main2Activity extends FragmentActivity {
+public class Main2Activity extends AppCompatActivity {
 
-    DBHelper mDBHelper;
-    SQLiteDatabase db;
-    ContentValues values;
-    User mUser;
-    Button mButton;
-    Button exitButton;
-    Button clearButton;
-    Button viewButton;
-    EditText mName;
-    EditText mLesson;
-    EditText mMark;
-    EditText mPrice;
-    EditText mSemester;
-    CheckBox isKafedra;
+    Toolbar toolbar;
+    ViewPager pager;
+    ViewPagerAdapter adapter;
+    SlidingTabLayout tabs;
+    CharSequence Titles[]={"Добавить","Список"};
+    int Numboftabs =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        mName = (EditText)findViewById(R.id.editTextName);
-        mLesson = (EditText)findViewById(R.id.editTextLesson);
-        mMark = (EditText)findViewById(R.id.editTextMark);
-        mPrice = (EditText)findViewById(R.id.editTextPrice);
-        mSemester = (EditText)findViewById(R.id.editTextSemester);
-        isKafedra = (CheckBox)findViewById(R.id.checkBox);
+        // Creating The Toolbar and setting it as the Toolbar for the activity
 
-        mDBHelper = new DBHelper(Main2Activity.this);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
 
-        values = new ContentValues();
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
-        db = mDBHelper.getWritableDatabase();
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
 
-        mButton = (Button)findViewById(R.id.button);
+        // Assiging the Sliding Tab Layout View
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
-            public void onClick(View v) {
-                mUser = new User();
-                putValues(db, mUser);
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
             }
         });
 
-        exitButton = (Button)findViewById(R.id.buttonExit);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        clearButton = (Button)findViewById(R.id.buttonClear);
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO clear all table
-            }
-        });
-
-        viewButton = (Button)findViewById(R.id.buttonList);
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO fragment with list
-            }
-        });
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
     }
 
 
@@ -96,32 +56,5 @@ public class Main2Activity extends FragmentActivity {
         super.onStop();
         finish();
     }
-
-
-    private void putValues(SQLiteDatabase db, User user){
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_ID, mUser.getmId());
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_NAME, mName.getText().toString());
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_LESSON, mLesson.getText().toString());
-        values.put(InstaPhizContract.PhizCols.COLUMN_MAME_MARK, mMark.getText().toString());
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_PRICE, mPrice.getText().toString());
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_SEMESTR, mSemester.getText().toString());
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_KAFEDRA, isKafedra.isChecked());
-
-        try {
-            long newRowId;
-            newRowId = db.insert(InstaPhizContract.PhizCols.TABLE_NAME,
-                    null,
-                    values);
-            mName.getText().clear();
-            mLesson.getText().clear();
-            mMark.getText().clear();
-            mPrice.getText().clear();
-            mSemester.getText().clear();
-            isKafedra.setChecked(false);
-        }catch (Exception e){
-            Toast.makeText(Main2Activity.this, "Error", Toast.LENGTH_LONG).show();
-        }
-    }
-
 
 }
