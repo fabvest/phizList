@@ -19,9 +19,6 @@ import com.fabvest_inc.ru.instaphiz.DB.InstaPhizContract;
 import com.fabvest_inc.ru.instaphiz.Data.User;
 
 
-/**
- * Created by fab on 28.02.2017.
- */
 
 public class TabAdd extends Fragment {
 
@@ -31,8 +28,6 @@ public class TabAdd extends Fragment {
     User mUser;
     Button mButton;
     Button exitButton;
-    Button clearButton;
-    Button viewButton;
     EditText mName;
     EditText mLesson;
     EditText mMark;
@@ -89,7 +84,7 @@ public class TabAdd extends Fragment {
     }
 
     private void putValues(SQLiteDatabase db, User user){
-        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_ID, mUser.getmId());
+        values.put(InstaPhizContract.PhizCols.COLUMN_NAME_ID, user.getmId());
         values.put(InstaPhizContract.PhizCols.COLUMN_NAME_NAME, mName.getText().toString());
         values.put(InstaPhizContract.PhizCols.COLUMN_NAME_LESSON, mLesson.getText().toString());
         values.put(InstaPhizContract.PhizCols.COLUMN_MAME_MARK, mMark.getText().toString());
