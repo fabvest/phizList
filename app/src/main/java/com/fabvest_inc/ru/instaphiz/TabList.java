@@ -71,6 +71,7 @@ public class TabList extends Fragment {
             Toast.makeText(getActivity(), "Нет записей", Toast.LENGTH_SHORT)
             .show();
         cursor.close();
+        db.close();
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
 
