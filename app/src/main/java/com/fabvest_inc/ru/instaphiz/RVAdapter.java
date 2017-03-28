@@ -31,14 +31,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //User user = rvUsers.get(position);
+
         if(holder == null) Log.d("holder", "holder is null");
-        holder.mName.setText(rvUsers.get(position).getmName());
-        holder.mLesson.setText(rvUsers.get(position).getLesson());
-        holder.mMark.setText(rvUsers.get(position).getMark());
-        holder.mPrice.setText(rvUsers.get(position).getPrice());
-        holder.mSemester.setText(rvUsers.get(position).getSemester());
-        holder.isKafedra.setChecked(rvUsers.get(position).isKafedra());
+        holder.mNameText.setText(rvUsers.get(position).getmName());
+        holder.mLessonText.setText(rvUsers.get(position).getLesson());
+        holder.mMarkText.setText(String.valueOf(rvUsers.get(position).getMark()));
+        holder.mPriceText.setText(String.valueOf(rvUsers.get(position).getPrice()));
+        holder.mSemesterText.setText(String.valueOf(rvUsers.get(position).getSemester()));
+        holder.isKafedraText.setChecked(rvUsers.get(position).isKafedra());
     }
 
     @Override
@@ -47,21 +47,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView mName;
-        public TextView mLesson;
-        public TextView mMark;
-        public TextView mPrice;
-        public TextView mSemester;
-        public CheckBox isKafedra;
+        public TextView mNameText;
+        public TextView mLessonText;
+        public TextView mMarkText;
+        public TextView mPriceText;
+        public TextView mSemesterText;
+        public CheckBox isKafedraText;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mName = (TextView)itemView.findViewById(R.id.editTextName);
-            mLesson = (TextView) itemView.findViewById(R.id.editTextLesson);
-            mMark = (TextView) itemView.findViewById(R.id.editTextMark);
-            mPrice = (TextView) itemView.findViewById(R.id.editTextPrice);
-            mSemester =(TextView) itemView.findViewById(R.id.editTextSemester);
-            isKafedra = (CheckBox) itemView.findViewById(R.id.checkBox2);
+            mNameText = (TextView)itemView.findViewById(R.id.textViewName);
+            mLessonText = (TextView) itemView.findViewById(R.id.textViewLesson);
+            mMarkText = (TextView) itemView.findViewById(R.id.textViewMark);
+            mPriceText = (TextView) itemView.findViewById(R.id.textViewPrice);
+            mSemesterText =(TextView) itemView.findViewById(R.id.textViewSemester);
+            isKafedraText = (CheckBox) itemView.findViewById(R.id.checkBox2);
 
         }
     }

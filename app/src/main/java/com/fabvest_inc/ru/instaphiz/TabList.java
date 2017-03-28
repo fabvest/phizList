@@ -59,7 +59,9 @@ public class TabList extends Fragment {
             int semesterColumn = cursor.getColumnIndex("semestr");
             int kafedraColumn = cursor.getColumnIndex("kafedra");
             do{
-                temp = Objects.equals(cursor.getString(kafedraColumn), "true");
+                String s = cursor.getString(kafedraColumn);
+
+                temp = Objects.equals(cursor.getString(kafedraColumn), "1");
                 users.add(new User(cursor.getString(nameColumn),
                         cursor.getString(lessonColumn),
                         cursor.getInt(markColumr),
